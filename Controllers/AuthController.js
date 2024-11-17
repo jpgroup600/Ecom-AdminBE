@@ -17,12 +17,10 @@ const signup = async (req, res) => {
     } = req.body;
     const user = await UserModel.findOne({ email });
     if (user) {
-      return res
-        .status(409)
-        .json({
-          message: "User already exists, you can login",
-          success: false,
-        });
+      return res.status(409).json({
+        message: "User already exists, you can login",
+        success: false,
+      });
     }
     const userModel = new UserModel({
       name,
