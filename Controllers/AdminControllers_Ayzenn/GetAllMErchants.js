@@ -2,8 +2,8 @@ const MerchantModel = require('../../Models/Merchant');
 
 const GetAllMerchantsFunction = async (req, res) => {
     try {
-        const page = parseInt(req.params.pagenumber) || 1; 
-        const limit = parseInt(req.params.limit) || 10; 
+        const page = parseInt(req.query.page) || 1; 
+        const limit = parseInt(req.query.limit) || 10; 
         if (isNaN(page) || page < 1 || isNaN(limit) || limit < 1) {
             return res.status(400).json({ error: "Invalid page number or limit." });
         }
@@ -17,6 +17,7 @@ const GetAllMerchantsFunction = async (req, res) => {
             totalPages: Math.ceil(totalMerchants / limit),
             currentPage: page,
             merchants,
+            changed : "2024-11-26"
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
