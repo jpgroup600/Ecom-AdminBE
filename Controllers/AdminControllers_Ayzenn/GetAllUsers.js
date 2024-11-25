@@ -6,6 +6,7 @@ const GetAllUsersFunction = async (req, res) => {
         const limit = parseInt(req.params.limit) || 10; 
         const skip = (page - 1) * limit;
         const users = await UserModel.find({})
+            .sort({ joinedDate: -1 })
             .skip(skip)
             .limit(limit);
         const totalUsers = await UserModel.countDocuments();
