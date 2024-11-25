@@ -19,6 +19,7 @@ const GetAllUsersFunction = async (req, res) => {
             totalPages: Math.ceil(totalUsers / limit),
             currentPage: page,
             users,
+            changed : "2024-11-26"
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
