@@ -15,6 +15,11 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
+  setToCompaign: {
+    type:Boolean,
+    default: false,
+    required:false,
+  },
   isVisitOrShip: {
     type: String,
     required: true,

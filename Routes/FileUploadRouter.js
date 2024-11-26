@@ -57,7 +57,9 @@ router.post("/upload", upload.array("images", 10), async (req, res) => {
       });
       await newImage.save();
 
-      const imageUrl = `http://localhost:8080/uploads/${file.filename}`;
+      const currentHost = `${req.protocol}://${req.get('host')}`;
+      const imageUrl = `${currentHost}/uploads/${file.filename}`;
+
       uploadedImages.push(imageUrl);
     }
 
