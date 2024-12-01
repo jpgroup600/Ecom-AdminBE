@@ -44,6 +44,88 @@ Approverouter.post("/user-approve", async (req, res) => {
   }
 });
 
+Approverouter.post("/user-pending", async (req, res) => {
+  try {
+    const {productId,email} = req.body; // Ensure this is the correct identifier
+    console.log("Approving product with ID:", productId);
+
+    const product = await ProductModel.findById(productId);
+
+    // Update the product with the given ID
+    const result = await ProductModel.updateMany(
+      { _id: productId,
+        "registeredUsers.email": email
+       }, // Assuming you're filtering by _id
+      { $set: { 
+        "registeredUsers.$.status": "pending"  // Update only that user's status
+      }  }
+    );
+
+    // Check if any products were modified
+    if (result.nModified === 0) {
+      return res
+        .status(404)
+        .json({ message: "No products found with the given ID" });
+    }
+    const notification = new Notification({
+      productId: productId,
+      receiver: email,
+      message: ` "${product.campaignName}"이 대기중으로 변경되었습니다`
+    });
+    await notification.save();
+   
+    res
+      .status(200)
+      .json({ message: "Products updated to approved successfully" });
+  } catch (error) {
+    console.error("Error approving products:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while approving the products." , error: error});
+  }
+});
+
+Approverouter.post("/user-reject", async (req, res) => {
+  try {
+    const {productId,email} = req.body; // Ensure this is the correct identifier
+    console.log("Approving product with ID:", productId);
+
+    const product = await ProductModel.findById(productId);
+
+    // Update the product with the given ID
+    const result = await ProductModel.updateMany(
+      { _id: productId,
+        "registeredUsers.email": email
+       }, // Assuming you're filtering by _id
+      { $set: { 
+        "registeredUsers.$.status": "reject"  // Update only that user's status
+      }  }
+    );
+
+    // Check if any products were modified
+    if (result.nModified === 0) {
+      return res
+        .status(404)
+        .json({ message: "No products found with the given ID" });
+    }
+    const notification = new Notification({
+      productId: productId,
+      receiver: email,
+      message: ` "${product.campaignName}"이 거절되었습니다`
+    });
+    await notification.save();
+   
+    res
+      .status(200)
+      .json({ message: "Products updated to approved successfully" });
+  } catch (error) {
+    console.error("Error approving products:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while approving the products." , error: error});
+  }
+});
+
 
 
 
