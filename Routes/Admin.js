@@ -26,7 +26,7 @@ Approverouter.post("/approve", async (req, res) => {
     await CreateNotification({
     productId: productId,
     receiver: product.email,
-    message: `당신 상품 "${product.campaignName}"이 등록되었습니다`
+    message: "Your product has been approved"
 });
     res
       .status(200)
