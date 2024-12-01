@@ -129,6 +129,40 @@ Approverouter.post('/setcampaign', async (req, res) => {
   }
 });
 
+Approverouter.post('/remove-campaign', async (req, res) => {
+  try {
+    const { productId } = req.body.data;
+
+    if (!productId) {
+      return res.status(400).json({ message: "Product ID is required" });
+    }
+
+    console.log("Setting campaign with Product ID:", productId);
+
+    const result = await ProductModel.updateOne(
+      { _id: productId },
+      { $set: { setToCompaign: false } }
+    );
+    console.log("updated ", result)
+
+    // Check if any products were modified
+    if (result.modifiedCount === 0) {
+      return res
+        .status(404)
+        .json({ message: "No products found with the given ID" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Product updated to campaign successfully" });
+  } catch (error) {
+    console.error("Error setting campaign for product:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while setting the campaign." });
+  }
+});
+
 Approverouter.post('/add-product', async (req, res) => {
   console.log("Add product request received", req.body);
 
