@@ -6,14 +6,14 @@ const Notification = require("../Models/Notification");
 
 Approverouter.post("/approve", async (req, res) => {
   try {
-    const {_id, merchant } = req.body; // Ensure this is the correct identifier
-    console.log("Approving product with ID:", _id);
+    const {productId} = req.body; // Ensure this is the correct identifier
+    console.log("Approving product with ID:", productId);
 
-    const product = await ProductModel.findById(_id);
+    const product = await ProductModel.findById(productId);
 
     // Update the product with the given ID
     const result = await ProductModel.updateMany(
-      { _id: _id }, // Assuming you're filtering by _id
+      { _id: productId }, // Assuming you're filtering by _id
       { $set: { status: "approved" } }
     );
 
@@ -24,10 +24,10 @@ Approverouter.post("/approve", async (req, res) => {
         .json({ message: "No products found with the given ID" });
     }
     await CreateNotification({
-      productId: _id,
-      receiver: merchant.email,
-      message: `당신 상품 "${product.campaignName}"이 등록되었습니다`
-  });
+    productId: productId,
+    receiver: product.email,
+    message: `당신 상품 "${product.campaignName}"이 등록되었습니다`
+});
     res
       .status(200)
       .json({ message: "Products updated to approved successfully" });
@@ -35,7 +35,7 @@ Approverouter.post("/approve", async (req, res) => {
     console.error("Error approving products:", error);
     res
       .status(500)
-      .json({ message: "An error occurred while approving the products." , error: error});
+      .json({ message: "An error occurred while approving the products." });
   }
 });
 Approverouter.post("/reject", async (req, res) => {
