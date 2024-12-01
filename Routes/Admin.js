@@ -35,7 +35,7 @@ Approverouter.post("/approve", async (req, res) => {
     console.error("Error approving products:", error);
     res
       .status(500)
-      .json({ message: "An error occurred while approving the products." });
+      .json({ message: "An error occurred while approving the products." , error: error});
   }
 });
 Approverouter.post("/reject", async (req, res) => {
