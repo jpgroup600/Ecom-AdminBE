@@ -17,7 +17,7 @@ Approverouter.post("/user-approve", async (req, res) => {
        }, // Assuming you're filtering by _id
        { 
         $set: { 
-            "registeredUsers.$[elem].status": "reject"
+            "registeredUsers.$[elem].status": "approve"
         }
     },
     {
@@ -63,7 +63,7 @@ Approverouter.post("/user-pending", async (req, res) => {
        }, // Assuming you're filtering by _id
        { 
         $set: { 
-            "registeredUsers.$[elem].status": "reject"
+            "registeredUsers.$[elem].status": "pending"
         }
     },
     {
