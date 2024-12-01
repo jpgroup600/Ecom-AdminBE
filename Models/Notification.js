@@ -5,20 +5,23 @@ const Schema = mongoose.Schema;
 // Define the Notification schema
 const NotificationSchema = new Schema(
   {
-    sender: {
+     productId: {
       type: String,
-    
-  
     },
     receiver: {
       type: String,
-      
-
-    
     },
     message: {
       type: String,
       required: true,
+    },
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+    time: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true } 

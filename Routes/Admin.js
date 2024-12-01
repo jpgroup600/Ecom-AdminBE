@@ -6,12 +6,14 @@ const Notification = require("../Models/Notification");
 
 Approverouter.post("/approve", async (req, res) => {
   try {
-    const { productId, userId } = req.body; // Ensure this is the correct identifier
-    console.log("Approving product with ID:", productId);
+    const {_id, merchant } = req.body; // Ensure this is the correct identifier
+    console.log("Approving product with ID:", _id);
+
+    const product = await ProductModel.findById(_id);
 
     // Update the product with the given ID
     const result = await ProductModel.updateMany(
-      { _id: productId }, // Assuming you're filtering by _id
+      { _id: _id }, // Assuming you're filtering by _id
       { $set: { status: "approved" } }
     );
 
@@ -21,12 +23,11 @@ Approverouter.post("/approve", async (req, res) => {
         .status(404)
         .json({ message: "No products found with the given ID" });
     }
-    await CreateNotification(
-      "admin",
-      userId,
-      "Your product has been Approved id is " + productId,
-      "AdminNotif"
-    );
+    await CreateNotification({
+      productId: _id,
+      receiver: merchant.email,
+      message: `당신 상품 "${product.campaignName}"이 등록되었습니다`
+  });
     res
       .status(200)
       .json({ message: "Products updated to approved successfully" });
