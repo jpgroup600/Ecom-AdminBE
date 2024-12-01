@@ -82,8 +82,10 @@ Approverouter.post("/pending", async (req, res) => {
 
 Approverouter.post("/reject", async (req, res) => {
   try {
-    const { productId, userId } = req.body.id; // Ensure this is the correct identifier
+    const {productId} = req.body; // Ensure this is the correct identifier
     console.log("Approving product with ID:", productId);
+
+    const product = await ProductModel.findById(productId);
 
     // Update the product with the given ID
     const result = await ProductModel.updateMany(
@@ -97,20 +99,21 @@ Approverouter.post("/reject", async (req, res) => {
         .status(404)
         .json({ message: "No products found with the given ID" });
     }
-    await CreateNotification(
-      "admin",
-      userId,
-      "Your product has been Rejected by Admin id is " + productId,
-      "AdminNotif"
-    );
+    const notification = new Notification({
+      productId: productId,
+      receiver: product.email,
+      message: `당신 상품 "${product.campaignName}"이 거절되었습니다`
+    });
+    await notification.save();
+   
     res
       .status(200)
-      .json({ message: "Products updated to Rejected successfully" });
+      .json({ message: "Products updated to rejected successfully" });
   } catch (error) {
     console.error("Error approving products:", error);
     res
       .status(500)
-      .json({ message: "An error occurred while approving the products." });
+      .json({ message: "An error occurred while approving the products." , error: error});
   }
 });
 
