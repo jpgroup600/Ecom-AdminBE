@@ -23,11 +23,13 @@ Approverouter.post("/approve", async (req, res) => {
         .status(404)
         .json({ message: "No products found with the given ID" });
     }
-    await CreateNotification({
-    productId: productId,
-    receiver: product.email,
-    message: "Your product has been approved"
-});
+    const notification = new Notification({
+      productId: productId,
+      receiver: product.email,
+      message: "Your product has been approved"
+    });
+    await notification.save();
+   
     res
       .status(200)
       .json({ message: "Products updated to approved successfully" });
