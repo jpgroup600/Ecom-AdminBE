@@ -90,14 +90,15 @@ const ProductSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["Pending", "Approved", "Expired"], 
+    enum: ["pending", "approved", "expired","rejected"], 
     required: false,
-    default: "Pending", 
+    default: "pending", 
   },
   joinedDate: {
     type: Date,
     default: Date.now,
-  }
+  },
+  registeredUsers: {type: [Object], required: false}, 
 });
 
 const ProductModel = mongoose.model("products", ProductSchema);
