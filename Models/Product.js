@@ -99,6 +99,7 @@ const ProductSchema = new Schema({
     default: Date.now,
   },
   registeredUsers: {type: [Object], required: false}, 
+  merchant : {type: mongoose.Schema.Types.ObjectId, ref: 'merchants'}
 });
 
 const ProductModel = mongoose.model("products", ProductSchema);

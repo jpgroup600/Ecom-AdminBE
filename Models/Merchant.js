@@ -55,6 +55,10 @@ const MerchantSchema = new Schema({
     type: String, 
     required: false,
   },
+  urladdress: {
+    type: String,
+    required: false,
+  },
   
 });
 
