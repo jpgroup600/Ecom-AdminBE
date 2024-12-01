@@ -40,6 +40,46 @@ Approverouter.post("/approve", async (req, res) => {
       .json({ message: "An error occurred while approving the products." , error: error});
   }
 });
+
+
+Approverouter.post("/pending", async (req, res) => {
+  try {
+    const {productId} = req.body; // Ensure this is the correct identifier
+    console.log("Approving product with ID:", productId);
+
+    const product = await ProductModel.findById(productId);
+
+    // Update the product with the given ID
+    const result = await ProductModel.updateMany(
+      { _id: productId }, // Assuming you're filtering by _id
+      { $set: { status: "pending" } }
+    );
+
+    // Check if any products were modified
+    if (result.nModified === 0) {
+      return res
+        .status(404)
+        .json({ message: "No products found with the given ID" });
+    }
+    const notification = new Notification({
+      productId: productId,
+      receiver: product.email,
+      message: `당신 상품 "${product.campaignName}"이 대기로 변경되었습니다`
+    });
+    await notification.save();
+   
+    res
+      .status(200)
+      .json({ message: "Products updated to approved successfully" });
+  } catch (error) {
+    console.error("Error approving products:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while approving the products." , error: error});
+  }
+});
+
+
 Approverouter.post("/reject", async (req, res) => {
   try {
     const { productId, userId } = req.body.id; // Ensure this is the correct identifier
@@ -73,6 +113,8 @@ Approverouter.post("/reject", async (req, res) => {
       .json({ message: "An error occurred while approving the products." });
   }
 });
+
+
 Approverouter.delete("/delete", async (req, res) => {
   console.log("Delete request received asdfasdfasdf", req.body);
   try {
