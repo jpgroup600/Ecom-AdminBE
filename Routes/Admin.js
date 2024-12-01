@@ -3,6 +3,18 @@ const Approverouter = require("express").Router();
 const Notification = require("../Models/Notification");
 
 
+Approverouter.post('/SendMessage', async (req, res) => {
+  const { email, message } = req.body;
+  const notification = new Notification({
+    productId: "관리자",
+    receiver: email,
+    message: message
+  });
+  await notification.save();
+  res.status(200).json({ message: 'Message sent successfully' });
+});
+
+
 Approverouter.post("/user-approve", async (req, res) => {
   try {
     const {productId,email} = req.body; // Ensure this is the correct identifier
