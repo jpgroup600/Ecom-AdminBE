@@ -15,9 +15,14 @@ Approverouter.post("/user-approve", async (req, res) => {
       { _id: productId,
         "registeredUsers.email": email
        }, // Assuming you're filtering by _id
-      { $set: { 
-        "registeredUsers.$.status": "approved"  // Update only that user's status
-      }  }
+       { 
+        $set: { 
+            "registeredUsers.$[elem].status": "reject"
+        }
+    },
+    {
+        arrayFilters: [{ "elem.email": email }]
+    }
     );
 
     // Check if any products were modified
@@ -56,9 +61,14 @@ Approverouter.post("/user-pending", async (req, res) => {
       { _id: productId,
         "registeredUsers.email": email
        }, // Assuming you're filtering by _id
-      { $set: { 
-        "registeredUsers.$.status": "pending"  // Update only that user's status
-      }  }
+       { 
+        $set: { 
+            "registeredUsers.$[elem].status": "reject"
+        }
+    },
+    {
+        arrayFilters: [{ "elem.email": email }]
+    }
     );
 
     // Check if any products were modified
@@ -97,9 +107,14 @@ Approverouter.post("/user-reject", async (req, res) => {
       { _id: productId,
         "registeredUsers.email": email
        }, // Assuming you're filtering by _id
-      { $set: { 
-        "registeredUsers.$.status": "reject"  // Update only that user's status
-      }  }
+       { 
+        $set: { 
+            "registeredUsers.$[elem].status": "reject"
+        }
+    },
+    {
+        arrayFilters: [{ "elem.email": email }]
+    }
     );
 
     // Check if any products were modified
