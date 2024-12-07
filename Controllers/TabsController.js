@@ -16,7 +16,7 @@ const handleArrayStrings = async (req, res) => {
   try {
     // Save the array to the database
     const newTab = await Tab.findOneAndUpdate(
-      { _id: "672ca7e74625d22be700ffd6" },
+      {},
       { $set: { stringsArray } }, // Set the new array value for 'stringsArray'
       { new: true } // Option to return the updated document
     );
