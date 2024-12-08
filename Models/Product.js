@@ -103,8 +103,8 @@ const ProductSchema = new Schema({
     type: String,
     required: false,
   },
-  catagory: { type: String, required: false, default: "" },
-  buisnessName: { type: String, required: false, default: "" },
+  catagory: { type: String, required: false},
+  buisnessName: { type: String, required: false },
 });
 
 const ProductModel = mongoose.model("products", ProductSchema);
