@@ -8,12 +8,14 @@ const addProduct = async (req, res) => {
 
     const {
       campaignName,
+      service,
       isVisitOrShip,
       location,
       checkDay,
       availableTime,
       numberOfPeople,
       image,
+      image1,
       textArea1,
       textArea2,
       textArea3,
@@ -23,6 +25,7 @@ const addProduct = async (req, res) => {
       channel,
       uploadedDate,
       registeredUsers,
+      catagory,
     } = req.body;
 
     const userExists = await checkUserByEmail(email);
@@ -32,13 +35,16 @@ const addProduct = async (req, res) => {
     }
 
     const product = new ProductModel({
-      email: email,
+      email,
+      service,
       campaignName,
       isVisitOrShip,
       location,
       checkDay,
+      catagory,
       availableTime,
       numberOfPeople,
+      image1,
       image,
       textArea1,
       textArea2,

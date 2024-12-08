@@ -31,8 +31,8 @@ const ProductSchema = new Schema({
     required: true,
   },
   location: {
-    type: String,
-    required: true,
+    type: Object,
+    required: false,
   },
   checkDay: {
     type: String,
@@ -47,7 +47,7 @@ const ProductSchema = new Schema({
     required: true,
   },
   image: {
-    type: String,
+    type: [String],
     required: true,
   },
   textArea1: {
@@ -78,15 +78,7 @@ const ProductSchema = new Schema({
     type: Date,
   },
   image1: {
-    type: String,
-    required: false,
-  },
-  image2: {
-    type: String,
-    required: false,
-  },
-  image3: {
-    type: String,
+    type: [String],
     required: false,
   },
   status: {
@@ -111,6 +103,7 @@ const ProductSchema = new Schema({
     type: String,
     required: false,
   },
+  catagory: { type: String, required: false, default: "" },
 });
 
 const ProductModel = mongoose.model("products", ProductSchema);
