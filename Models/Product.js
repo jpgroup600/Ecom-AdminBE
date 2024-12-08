@@ -104,7 +104,7 @@ const ProductSchema = new Schema({
     required: false,
   },
   catagory: { type: String, required: false},
-  buisnessName: { type: String, required: false },
+  businessName: { type: String, required: false },
 });
 
 const ProductModel = mongoose.model("products", ProductSchema);

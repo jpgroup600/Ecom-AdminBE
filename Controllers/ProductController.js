@@ -26,7 +26,7 @@ const addProduct = async (req, res) => {
       uploadedDate,
       registeredUsers,
       catagory,
-      buisnessName
+      businessName,
     } = req.body;
 
     const userExists = await checkUserByEmail(email);
@@ -55,7 +55,8 @@ const addProduct = async (req, res) => {
       channel,
       uploadedDate,
       registeredUsers,
-      buisnessName
+      businessName
+
     });
 
     await product.save();
