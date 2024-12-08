@@ -1,4 +1,5 @@
 const MerchantModel = require('../../Models/Merchant');
+
 const GetAllMerchantsPage = async (req, res) => {
     try {
         const merchants = await MerchantModel.find({});

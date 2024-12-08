@@ -84,5 +84,5 @@ router.get("/GetAllUsers", GetAllUsersFunction);
 router.get("/GetAllProductsDate", GetAllProductsAddedDate);
 router.post("/signup", Signup);
 router.post("/login", Login);
-router.get("get-all-merchants", GetAllMerchantsPage); // get all merchants with no pagination
+router.get("/get-all-merchants", GetAllMerchantsPage); // get all merchants with no pagination
 module.exports = router;
