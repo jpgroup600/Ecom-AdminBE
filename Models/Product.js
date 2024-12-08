@@ -7,6 +7,12 @@ const ProductSchema = new Schema({
     ref: "users",
     required: false,
   },
+
+  service: {
+    type:String,
+    default: "visit"
+  },
+
   email: {
     type: String,
     required: true,
@@ -71,11 +77,6 @@ const ProductSchema = new Schema({
   uploadedDate: {
     type: Date,
   },
-  registeredUsers: {
-    type: [mongoose.Schema.Types.ObjectId], // Array of ObjectId references to users
-    ref: "users",
-    required: false,
-  },
   image1: {
     type: String,
     required: false,
@@ -99,7 +100,17 @@ const ProductSchema = new Schema({
     default: Date.now,
   },
   registeredUsers: {type: [Object], required: false}, 
-  merchant : {type: mongoose.Schema.Types.ObjectId, ref: 'merchants'}
+  merchant : {type: mongoose.Schema.Types.ObjectId, ref: 'merchants'},
+  createdAt: {
+    type: Date,
+    required: false,
+    default: Date.now,  
+  },
+
+  token: {
+    type: String,
+    required: false,
+  },
 });
 
 const ProductModel = mongoose.model("products", ProductSchema);

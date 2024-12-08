@@ -27,6 +27,11 @@ const {
   Signup,
   Login,
 } = require("../Controllers/AdminControllers_Ayzenn/AdminAutController");
+
+const {
+  GetAllMerchantsPage,
+} = require("../Controllers/AdminControllers_Ayzenn/GetAllMerchantsPage");
+
 const Banners = require("../Models/Banners");
 router.get("/GetAllList", GetAllListFunction);
 router.get("/allBanners/", async (req, res) => {
@@ -79,4 +84,5 @@ router.get("/GetAllUsers", GetAllUsersFunction);
 router.get("/GetAllProductsDate", GetAllProductsAddedDate);
 router.post("/signup", Signup);
 router.post("/login", Login);
+router.get("get-all-merchants", GetAllMerchantsPage); // get all merchants with no pagination
 module.exports = router;
