@@ -17,9 +17,9 @@ const MerchantSchema = new Schema({
   },
   businessName: {
     type: String,
-    required: true,
   },
-  address: {
+  
+  urladdress: {
     type: String,
     required: false,
   },
@@ -28,36 +28,16 @@ const MerchantSchema = new Schema({
     required: true,
   },
   signupPath: {
-    type: String, 
+    type: String,
+    required: false,
+  },
+  userType: {
+    type: String,
     required: true,
   },
-  TextFild1: {
-    type: String,
-    required: false,
-  },
-  TextFild2: {
-    type: String,
-    required: false,
-  },
-  TextFild3: {
-    type: String, 
-    required: false,
-  },
-  image1: {
-    type: String, 
-    required: false,
-  },
-  image2: {
-    type: String, 
-    required: false,
-  },
-  image3: {
-    type: String, 
-    required: false,
-  },
-  urladdress: {
-    type: String,
-    required: false,
+  registerDate: {
+    type: Date,
+    default: Date.now,
   },
   
 });
