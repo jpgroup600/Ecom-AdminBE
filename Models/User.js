@@ -16,32 +16,29 @@ const UserSchema = new Schema({
     },
     phoneNumber: {
         type: String,
-        required: true, 
+        required: true,
     },
     birthDate: {
         type: String,
         required: false,
     },
+    gender: {
+        type: String,
+        required: true,
+    },
     influenceType: {
-        type: String,
-        required: true, 
+        type: Object,
+        required: true,
     },
-    textField1: {
+    
+    userType: {
         type: String,
-        required: false, 
+        required: true,
     },
-    textField2: {
-        type: String,
-        required: false, 
-    },
-    textField3: {
-        type: String,
-        required: false, 
-    },
-    joinedDate: {
+    registerDate: {
         type: Date,
-        default: Date.now, 
-    }
+        default: Date.now,
+      },
 });
 
 const UserModel = mongoose.model('users', UserSchema);
